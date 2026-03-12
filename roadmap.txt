@@ -1,0 +1,101 @@
+
+---
+
+# 🗺️ Brief Roadmap — personal Expense Tracker
+
+---
+
+## Phase 0 — Accounts & Setup *(Day 1)*
+- Create Setu sandbox, Gemini API, MongoDB Atlas accounts
+- Init React + Express projects
+- Setup `.env` with all keys
+
+---
+
+## Phase 1 — Landing Page *(Day 2–3)*
+**First thing to build — React frontend:**
+- Hero section → *"Track your finances smartly"*
+- Features section → 4 feature cards
+- How it works → 3 step flow
+- CTA buttons → Login / Sign Up
+- Navbar + Footer
+
+---
+
+## Phase 2 — Auth Pages *(Day 4–5)*
+- Login page
+- Register page
+- JWT token storage
+- Protected route setup
+
+---
+
+## Phase 3 — Backend + Database *(Day 6–9)*
+- Express server + MongoDB connection
+- User, Transaction, Budget, Insight schemas
+- Auth routes (`/register`, `/login`, `/me`)
+
+---
+
+## Phase 4 — Setu AA Integration *(Day 10–13)*
+- Consent creation route
+- Webhook handler
+- Fetch + save mock transactions to MongoDB
+
+---
+
+## Phase 5 — Gemini AI *(Day 14–17)*
+- Auto-categorize transactions
+- Anomaly detection logic
+- Weekly cron job for insights
+
+---
+
+## Phase 6 — Budget & Forecasting *(Day 18–20)*
+- Set monthly budgets per category
+- Forecast end-of-month spending
+- Budget status API
+
+---
+
+## Phase 7 — Dashboard + Charts *(Day 21–25)*
+- Dashboard page with summary cards
+- Donut chart — spending by category
+- Line chart — 6 month trend
+- Bar chart — budget vs actual vs projected
+- Insights + anomaly alert cards
+
+---
+
+## Phase 8 — Remaining Pages *(Day 26–27)*
+- Transactions page — filterable list
+- Budgets page — progress bars
+- Insights page — AI cards
+- Linked Accounts page — connect bank button
+
+---
+
+## Phase 9 — Polish + Deploy *(Day 28–30)*
+- Mobile responsive
+- ₹ INR formatting
+- Security hardening
+- Deploy → Vercel (frontend) + Render (backend)
+
+---
+
+## 📅 At a Glance
+
+```
+Day 1      → Setup
+Day 2–3    → Landing Page 🎨
+Day 4–5    → Auth Pages
+Day 6–9    → Backend + DB
+Day 10–13  → Setu AA
+Day 14–17  → Gemini AI
+Day 18–20  → Budgets
+Day 21–25  → Dashboard + Charts
+Day 26–27  → All Pages
+Day 28–30  → Polish + Deploy 🚀
+```
+
+---
