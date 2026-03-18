@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, TrendingUp } from 'lucide-react';
 
 const Navbar = () => {
@@ -7,7 +8,7 @@ const Navbar = () => {
   const navLinks = [
     { label: 'Features', href: '#features' },
     { label: 'How It Works', href: '#how-it-works' },
-    { label: 'About', href: '#stats' },
+    { label: 'About', href: '#contribute' },
   ];
 
   return (
@@ -15,12 +16,12 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 text-blue-600 font-bold text-xl">
+          <Link to="/" className="flex items-center gap-2 text-blue-600 font-bold text-xl">
             <div className="bg-blue-600 text-white p-1.5 rounded-lg">
               <TrendingUp size={20} />
             </div>
             <span className="text-gray-900">Expense<span className="text-blue-600">IQ</span></span>
-          </a>
+          </Link>
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
@@ -37,18 +38,18 @@ const Navbar = () => {
 
           {/* Desktop CTA buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-blue-600 font-semibold px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200"
             >
               Login
-            </a>
-            <a
-              href="/register"
+            </Link>
+            <Link
+              to="/register"
               className="btn-primary text-sm px-5 py-2.5"
             >
               Sign Up Free
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu toggle */}
@@ -75,12 +76,12 @@ const Navbar = () => {
             </a>
           ))}
           <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
-            <a href="/login" className="text-center text-blue-600 font-semibold py-2 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors">
+            <Link to="/login" className="text-center text-blue-600 font-semibold py-2 rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors" onClick={() => setIsOpen(false)}>
               Login
-            </a>
-            <a href="/register" className="btn-primary text-center text-sm">
+            </Link>
+            <Link to="/register" className="btn-primary text-center text-sm" onClick={() => setIsOpen(false)}>
               Sign Up Free
-            </a>
+            </Link>
           </div>
         </div>
       )}

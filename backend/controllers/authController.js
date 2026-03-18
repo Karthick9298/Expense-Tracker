@@ -7,6 +7,14 @@ import emailQueue from '../queues/emailQueue.js';
 // OTP TTL in seconds (5 minutes)
 const OTP_TTL = 5 * 60;
 
+// Cookie options for JWT
+const cookieOptions = () => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+});
+
 // Redis key helpers
 const otpKey = (purpose, email) => `otp:${purpose}:${email.toLowerCase()}`;
 
@@ -49,7 +57,7 @@ const registerSendOtp = async (req, res) => {
 
 // ---------------------------------------------------------
 // POST /api/auth/register/verify-otp
-// Reads OTP from Redis, creates user, deletes key
+// Reads OTP from Redis, creates user, sets cookie
 // ---------------------------------------------------------
 const registerVerifyOtp = async (req, res) => {
   try {
@@ -85,9 +93,11 @@ const registerVerifyOtp = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+    // Set JWT as httpOnly cookie
+    res.cookie('token', token, cookieOptions());
+
     return res.status(201).json({
       message: 'Account created successfully!',
-      token,
       user: { id: user._id, fullName: user.fullName, email: user.email },
     });
   } catch (err) {
@@ -126,7 +136,7 @@ const loginSendOtp = async (req, res) => {
 
 // ---------------------------------------------------------
 // POST /api/auth/login/verify-otp
-// Reads OTP from Redis, issues JWT, deletes key
+// Reads OTP from Redis, sets cookie
 // ---------------------------------------------------------
 const loginVerifyOtp = async (req, res) => {
   try {
@@ -152,9 +162,11 @@ const loginVerifyOtp = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+    // Set JWT as httpOnly cookie
+    res.cookie('token', token, cookieOptions());
+
     return res.status(200).json({
       message: 'Login successful!',
-      token,
       user: { id: user._id, fullName: user.fullName, email: user.email },
     });
   } catch (err) {
@@ -163,4 +175,17 @@ const loginVerifyOtp = async (req, res) => {
   }
 };
 
-export { registerSendOtp, registerVerifyOtp, loginSendOtp, loginVerifyOtp };
+// ---------------------------------------------------------
+// POST /api/auth/logout
+// Clears the JWT cookie
+// ---------------------------------------------------------
+const logout = (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+  });
+  return res.status(200).json({ message: 'Logged out successfully.' });
+};
+
+export { registerSendOtp, registerVerifyOtp, loginSendOtp, loginVerifyOtp, logout };

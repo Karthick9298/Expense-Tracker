@@ -1,43 +1,33 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/landing-page/Navbar';
-import HeroSection from './components/landing-page/HeroSection';
-import FeaturesSection from './components/landing-page/FeaturesSection';
-import HowItWorks from './components/landing-page/HowItWorks';
-import ContributeSection from './components/landing-page/ContributeSection';
-import Footer from './components/landing-page/Footer';
-import RegisterPage from './components/auth/RegisterPage';
-import LoginPage from './components/auth/LoginPage';
-
-const LandingPage = () => (
-  <div className="min-h-screen w-full overflow-x-hidden">
-    <Navbar />
-    <main>
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorks />
-      <ContributeSection />
-    </main>
-    <Footer />
-  </div>
-);
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import PageTransition from './components/PageTransition';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        {/* Dashboard route placeholder */}
-        <Route
-          path="/dashboard"
-          element={
-            <div className="min-h-screen flex items-center justify-center text-2xl font-bold text-gray-700">
-              Dashboard — Coming Soon
-            </div>
-          }
-        />
-      </Routes>
+      <AuthProvider>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </PageTransition>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

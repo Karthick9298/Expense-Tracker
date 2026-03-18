@@ -5,7 +5,9 @@ import {
   registerVerifyOtp,
   loginSendOtp,
   loginVerifyOtp,
+  logout,
 } from '../controllers/authController.js';
+import protect from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -70,5 +72,19 @@ router.post(
   validate,
   loginVerifyOtp
 );
+
+// --- Logout ---
+router.post('/logout', logout);
+
+// --- Current User (protected) ---
+router.get('/me', protect, (req, res) => {
+  res.json({
+    user: {
+      id: req.user._id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+    },
+  });
+});
 
 export default router;

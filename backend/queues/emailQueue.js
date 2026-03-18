@@ -17,3 +17,4 @@ const emailQueue = new Queue('email', {
 });
 
 export default emailQueue;
+

@@ -1,4 +1,18 @@
 const sendOtpEmail = async (toEmail, toName, otp, purpose) => {
+
+  // ✅ DEV MODE: don't send email
+  if (process.env.ENVIRNOMENT === 'development') {
+    console.log("====== OTP EMAIL (DEV MODE) ======");
+    console.log("To:", toEmail);
+    console.log("Name:", toName);
+    console.log("Purpose:", purpose);
+    console.log("OTP:", otp);
+    console.log("=================================");
+
+    return; // stop here
+  }
+
+
   const subject =
     purpose === 'register'
       ? 'Verify your ExpenseIQ account'
@@ -27,14 +41,13 @@ const sendOtpEmail = async (toEmail, toName, otp, purpose) => {
           <div class="logo">Expense<span>IQ</span></div>
           <h2>${purpose === 'register' ? 'Welcome to ExpenseIQ!' : 'Login Verification'}</h2>
           <p>Hi ${toName || 'there'},</p>
-          <p>${
-            purpose === 'register'
-              ? 'Thank you for signing up! Please use the OTP below to verify your email address and complete your registration.'
-              : 'Use the OTP below to securely log in to your ExpenseIQ account.'
-          }</p>
+          <p>${purpose === 'register'
+      ? 'Thank you for signing up! Please use the OTP below to verify your email address and complete your registration.'
+      : 'Use the OTP below to securely log in to your ExpenseIQ account.'
+    }</p>
           <div class="otp-box">
             <div class="otp">${otp}</div>
-            <div class="expiry">This OTP expires in 10 minutes</div>
+            <div class="expiry">This OTP expires in 5 minutes</div>
           </div>
           <p>If you didn't request this, please ignore this email.</p>
           <div class="footer">© ${new Date().getFullYear()} ExpenseIQ. All rights reserved.</div>

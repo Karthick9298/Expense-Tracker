@@ -1,4 +1,5 @@
 import { ArrowRight, ShieldCheck, Sparkles, BarChart2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import heroImage from '../../assets/landing-page-first.jpg'
 
 const HeroSection = () => {
@@ -18,19 +19,19 @@ const HeroSection = () => {
                 Smartly
               </h1>
               <p className="text-lg md:text-xl text-gray-500 leading-relaxed max-w-lg">
-               Connect your bank accounts and our platform gives you insights by automatically categorizing your expenses.
+                Connect your bank accounts and our platform gives you insights by automatically categorizing your expenses.
               </p>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row flex-wrap gap-4">
-              <a
-                href="/register"
+              <Link
+                to="/register"
                 className="btn-primary flex items-center justify-center gap-2 text-base px-8 py-3.5"
               >
                 Get Started Free
                 <ArrowRight size={18} />
-              </a>
+              </Link>
               <a
                 href="#how-it-works"
                 className="btn-outline flex items-center justify-center gap-2 text-base px-8 py-3.5"
