@@ -93,7 +93,7 @@ const RegisterPage = () => {
             if (!res.ok) throw new Error(data.message || 'OTP verification failed');
             login(data.user);
             setSuccess(true);
-            setTimeout(() => navigate('/dashboard'), 2000);
+            setTimeout(() => navigate('/link-bank'), 2000);
         } catch (err) {
             setError(err.message);
         } finally {

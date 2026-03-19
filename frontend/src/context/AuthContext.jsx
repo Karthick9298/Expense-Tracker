@@ -7,6 +7,8 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true); // true while we verify cookie with /me
+    const [hasLinkedBank, setHasLinkedBank] = useState(false);
+
 
     // ------------------------------------------------------------------
     // On mount: verify auth by calling /api/auth/me (cookie sent automatically)
@@ -21,6 +23,14 @@ export const AuthProvider = ({ children }) => {
                 if (res.ok) {
                     const data = await res.json();
                     setUser(data.user);
+                }
+
+                const consentRes = await fetch(`${API}/setu/consent/status`, {
+                    credentials: 'include',
+                });
+                if (consentRes.ok) {
+                    const consentData = await consentRes.json();
+                    setHasLinkedBank(consentData.hasActive);
                 }
                 // If not ok (401, etc.), user stays null — not authenticated
             } catch {

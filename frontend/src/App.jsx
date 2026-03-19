@@ -7,6 +7,9 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
+import LinkPage from './pages/LinkPage';
+
+
 
 function App() {
   return (
@@ -22,6 +25,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/link-bank"
+              element={
+                <ProtectedRoute>
+                  <LinkPage />
                 </ProtectedRoute>
               }
             />

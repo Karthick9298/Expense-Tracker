@@ -61,7 +61,7 @@ const LoginPage = () => {
             if (!res.ok) throw new Error(data.message || 'OTP verification failed');
             login(data.user);
             setNavigating(true);
-            setTimeout(() => navigate('/dashboard'), 1500);
+            setTimeout(() => navigate('/link-bank'), 1500);
         } catch (err) {
             setError(err.message);
         } finally {
